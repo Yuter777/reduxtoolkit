@@ -12,12 +12,9 @@ const App = () => {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/add-todo" component={AddTodo} element={<AddTodo />} />
-          <Route
-            path="/list-todos"
-            component={ListTodos}
-            element={<ListTodos />}
-          />
+          <Route path="/" element={<ListTodos />} /> {/* Default route */}
+          <Route path="/add-todo" element={<AddTodo />} />
+          <Route path="/list-todos" element={<ListTodos />} />
         </Routes>
       </Router>
     </Provider>

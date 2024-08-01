@@ -29,8 +29,17 @@ const todosSlice = createSlice({
   initialState: {
     items: [],
     status: null,
+    searchQuery: "",
+    filterStatus: "all", // 'all', 'completed', 'incomplete'
   },
-  reducers: {},
+  reducers: {
+    setSearchQuery(state, action) {
+      state.searchQuery = action.payload;
+    },
+    setFilterStatus(state, action) {
+      state.filterStatus = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTodos.pending, (state) => {
@@ -56,4 +65,7 @@ const todosSlice = createSlice({
   },
 });
 
+export const { setSearchQuery, setFilterStatus } = todosSlice.actions;
+
 export default todosSlice.reducer;
+0;

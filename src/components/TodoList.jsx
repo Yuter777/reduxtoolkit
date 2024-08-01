@@ -6,15 +6,29 @@ import TodoItem from "./TodoItem";
 
 const TodoList = () => {
   const dispatch = useDispatch();
-  const todos = useSelector((state) => state.todos.items);
+  const { items, searchQuery, filterStatus } = useSelector(
+    (state) => state.todos
+  );
 
   useEffect(() => {
     dispatch(fetchTodos());
   }, [dispatch]);
 
+  const filteredItems = items.filter((todo) => {
+    const matchesSearchQuery = todo.text
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    const matchesFilterStatus =
+      filterStatus === "all" ||
+      (filterStatus === "completed" && todo.completed) ||
+      (filterStatus === "incomplete" && !todo.completed);
+
+    return matchesSearchQuery && matchesFilterStatus;
+  });
+
   return (
     <List>
-      {todos.map((todo) => (
+      {filteredItems.map((todo) => (
         <TodoItem key={todo.id} todo={todo} />
       ))}
     </List>
